@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyKV Analytics Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="analytics-container">
+    <!-- HEADER -->
+    <div class="analytics-header">
+        <div class="header-content">
+            <h1>📊 Result</h1>
+            <p class="header-subtitle">Real-time performance metrics and insights</p>
+        </div>
+        <button class="btn btn-back" onclick="window.location.href='/'">BACK</button>
+    </div>
+
+    <!-- STATS GRID -->
+    <div class="stats-container">
+        <div class="stat-card" onclick="openStatModal('total_keys')">
+            <div class="stat-icon">📦</div>
+            <p class="stat-label">Total Keys</p>
+            <span class="stat-value" id="total_keys">0</span>
+        </div>
+
+        <div class="stat-card" onclick="openStatModal('capacity')">
+            <div class="stat-icon">⚡</div>
+            <p class="stat-label">Capacity</p>
+            <span class="stat-value" id="capacity">0</span>
+        </div>
+
+        <div class="stat-card" onclick="openStatModal('delete_ops')">
+            <div class="stat-icon">🗑️</div>
+            <p class="stat-label">DELETE Ops</p>
+            <span class="stat-value" id="delete_ops">0</span>
+        </div>
+
+        <div class="stat-card" onclick="openStatModal('all_data')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="stat-icon">💾</div>
+            <p class="stat-label">TOTAL KEYS</p>
+            <span class="stat-value" id="total_hits">0</span>
+        </div>
+    </div>
+
+    <!-- CHARTS SECTION -->
+    <div class="charts-section">
+        <div class="chart-wrapper">
+            <div class="chart-header">
+                <h3>Operations Distribution</h3>
+                <span class="chart-badge">Bar Chart</span>
+            </div>
+            <canvas id="opsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalOverlay" class="modal-overlay" onclick="closeModal()"></div>
+<div id="statModal" class="modal-dialog">
+    <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalContent"></p>
+        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/static/js/app.js"></script>
+<script>
+    loadStats();
+    loadCharts();
+</script>
+
+</body>
+</html>
